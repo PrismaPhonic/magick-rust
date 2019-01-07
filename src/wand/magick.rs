@@ -405,8 +405,8 @@ impl MagickWand {
     }
 
     /// Returns the image histogram as a vector of `PixelWand` instances for every unique color.
-    pub fn get_image_histogram(&self) -> Option<Vec<PixelWand>> {
-        let mut color_count: size_t = 0;
+    pub fn get_image_histogram(&self, count: u32) -> Option<Vec<PixelWand>> {
+        let mut color_count: size_t = count as size_t;
 
         unsafe {
             bindings::MagickGetImageHistogram(self.wand, &mut color_count)
