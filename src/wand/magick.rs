@@ -115,20 +115,20 @@ impl MagickWand {
         }
     }
 
-    pub fn quantize_image(&self, num_cols: u32) -> Result<(), &'static str> {
-        let number_of_colors: size_t = num_cols as size_t;
-        let colorspace = 0;
-        let tree_depth: size_t = 1;
-        let dither_method = 0;
-        let measure_error = 0;
+    // pub fn quantize_image(&self, num_cols: u32) -> Result<(), &'static str> {
+    //     let number_of_colors: size_t = num_cols as size_t;
+    //     let colorspace = 0;
+    //     let tree_depth: size_t = 1;
+    //     let dither_method = 0;
+    //     let measure_error = 0;
 
-        let result = unsafe { bindings::MagickQuantizeImage(self.wand, number_of_colors, colorspace, tree_depth, dither_method, measure_error)};
+    //     let result = unsafe { bindings::MagickQuantizeImage(self.wand, number_of_colors, colorspace, tree_depth, dither_method, measure_error)};
 
-        match result {
-            bindings::MagickBooleanType_MagickTrue => Ok(()),
-            _ => Err("failed to quantize image"),
-        }
-    }
+    //     match result {
+    //         bindings::MagickBooleanType_MagickTrue => Ok(()),
+    //         _ => Err("failed to quantize image"),
+    //     }
+    // }
 
     pub fn write_images(&self, path: &str, adjoin: bool) -> Result<(), &'static str> {
         let c_name = CString::new(path).unwrap();
@@ -701,9 +701,9 @@ impl MagickWand {
             alpha_channel: bindings::AlphaChannelOption)
 
         /// Reduce the number of colors in the image.
-        // MagickQuantizeImage => quantize_image(
-        //     number_of_colors: size_t, colorspace: bindings::ColorspaceType,
-        //     tree_depth: size_t, dither_method: bindings::DitherMethod, measure_error: bindings::MagickBooleanType)
+        MagickQuantizeImage => quantize_image(
+            number_of_colors: size_t, colorspace: bindings::ColorspaceType,
+            tree_depth: size_t, dither_method: bindings::DitherMethod, measure_error: bindings::MagickBooleanType)
 
         /// Reduce the number of colors in the image.
         MagickQuantizeImages => quantize_images(
